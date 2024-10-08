@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Hello, Angular !';
+  name = 'Pikachu';
+  life = 21;
+
+  incrementLife() {
+    this.life = this.life + 1;
+  }
+
+  decrementLife() {
+    this.life = this.life - 1;
+  }
 }
