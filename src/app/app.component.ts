@@ -19,6 +19,7 @@ export class AppComponent {
     }
     return 'Moyen';
   });
+  imageSrc = signal('https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png');
 
   incrementLife() {
     this.life.update(n => n + 1);
