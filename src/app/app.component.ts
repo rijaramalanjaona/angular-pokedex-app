@@ -1,4 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { POKEMON_LIST } from './pokemon-list.fake';
 
 @Component({
   selector: 'app-root',
@@ -8,24 +9,5 @@ import { Component, computed, signal } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  name = signal('Pikachu');
-  life = signal(21);
-  size = computed(() => {
-    if (this.life() <= 15) {
-      return 'Petit';
-    }
-    if (this.life() >= 25) {
-      return 'Grand';
-    }
-    return 'Moyen';
-  });
-  imageSrc = signal('https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png');
-
-  incrementLife() {
-    this.life.update(n => n + 1);
-  }
-
-  decrementLife() {
-    this.life.update(n => n - 1);
-  }
+  pokemonList = signal(POKEMON_LIST);
 }
