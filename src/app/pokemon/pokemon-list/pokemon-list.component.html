@@ -45,6 +45,11 @@
                   <button class="btn btn-outline-secondary" (click)="incrementLife(pokemon)" [disabled]="pokemon.life >= 30">+</button>
                   <button class="btn btn-outline-secondary" (click)="decrementLife(pokemon)" [disabled]="pokemon.life <= 10">-</button>
                 </div>
+
+                <p class="card-text">
+                  <a class="text small text-muted" [routerLink]="['/pokemons', pokemon.id]">VOIR</a>
+                </p>
+
               </div>
             </div>
 
