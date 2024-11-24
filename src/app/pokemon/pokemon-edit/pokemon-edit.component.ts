@@ -44,4 +44,8 @@ export class PokemonEditComponent {
       this.pokemonTypeList.removeAt(index);
     }
   }
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
 }
