@@ -74,8 +74,10 @@
                       <button
                         type="button"
                         class="btn btn-secondary btn-sm rounded-pill m-1"
+                        [style.background-color]="getPokemonColor(type.value)"
+                        [style.color]="getPokemonTextColor(type.value)"
                         (click)="pokemonTypeList.removeAt(index)">
-                        {{ type.value }} <span class="badge">x</span>
+                        {{ type.value }} <span class="badge" [style.color]="getPokemonTextColor(type.value)">x</span>
                       </button>
                     }
                     <div class="row mt-3">

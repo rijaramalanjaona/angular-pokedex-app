@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PokemonService } from '../../pokemon.service';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { getPokemonColor, getPokemonTextColor } from '../../pokemon.model';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -47,5 +48,13 @@ export class PokemonEditComponent {
 
   onSubmit() {
     console.log(this.form.value);
+  }
+
+  getPokemonColor(type: string): string {
+    return getPokemonColor(type);
+  }
+
+  getPokemonTextColor(type: string): string {
+    return getPokemonTextColor(type);
   }
 }
