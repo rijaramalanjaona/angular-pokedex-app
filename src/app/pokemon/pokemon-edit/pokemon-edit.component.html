@@ -119,6 +119,17 @@
                         {{ type.value }} <span class="badge" [style.color]="getPokemonTextColor(type.value)">x</span>
                       </button>
                     }
+                    @if (pokemonTypeList.hasError('required')) {
+                      <p class="text-danger">
+                        Veuillez sélectionner au moins un type de Pokémon.
+                      </p>
+                    }
+                    @if (pokemonTypeList.hasError('maxlength')) {
+                      <p class="text-danger">
+                        Veuillez sélectionner au maximum
+                        {{ pokemonTypeList.getError('maxlength').requiredLength }} types pour un Pokémon.
+                      </p>
+                    }
                     <div class="row mt-3">
                       @for(type of pokemonService.getPokemonTypeList(); track type) {
                         <div class="col-md-4">
