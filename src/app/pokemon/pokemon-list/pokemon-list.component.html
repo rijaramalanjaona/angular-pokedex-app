@@ -41,11 +41,6 @@
                 <p class="card-text">{{ pokemon.created | date:'dd/MM/yyyy' }}</p>
                 <p class="card-text">Points de vie : {{ pokemon.life }}</p>
 
-                <div class="btn-group btn-group-sm" role="group">
-                  <button class="btn btn-outline-secondary" (click)="incrementLife(pokemon)" [disabled]="pokemon.life >= 30">+</button>
-                  <button class="btn btn-outline-secondary" (click)="decrementLife(pokemon)" [disabled]="pokemon.life <= 10">-</button>
-                </div>
-
                 <p class="card-text">
                   <a class="text small text-muted" [routerLink]="['/pokemons', pokemon.id]">VOIR</a>
                 </p>
