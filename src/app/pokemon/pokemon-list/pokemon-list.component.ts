@@ -10,7 +10,11 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [PokemonBorderDirective, DatePipe, RouterLink],
   templateUrl: './pokemon-list.component.html',
-  styles: ``
+  styles: [`
+    .pokemon-card {
+      cursor: pointer;
+    }
+  `]
 })
 export class PokemonListComponent {
   private readonly pokemonService = inject(PokemonService);
