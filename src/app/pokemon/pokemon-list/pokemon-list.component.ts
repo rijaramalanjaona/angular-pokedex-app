@@ -1,9 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, Signal, signal } from '@angular/core';
 import { PokemonBorderDirective } from '../../pokemon-border.directive';
 import { DatePipe } from '@angular/common';
 import { PokemonService } from '../../pokemon.service';
-import { Pokemon } from '../../pokemon.model';
+import { Pokemon, PokemonList } from '../../pokemon.model';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -19,11 +20,13 @@ import { RouterLink } from '@angular/router';
 export class PokemonListComponent {
   private readonly pokemonService = inject(PokemonService);
 
-  readonly pokemonList = signal(this.pokemonService.getPokemonList());
+  readonly pokemonList: Signal<PokemonList> = toSignal(this.pokemonService.getPokemonList(), {
+    initialValue: []
+  });
 
   readonly searchTerm = signal('');
 
-  readonly pokemonListFiltered = computed(() => this.pokemonList()
+  readonly pokemonListFiltered: Signal<PokemonList> = computed(() => this.pokemonList()
     .filter(pokemon => pokemon.name.toLowerCase().includes(this.searchTerm().trim().toLowerCase())));
 
   size(pokemon: Pokemon): string {

@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Pokemon, PokemonList } from './pokemon.model';
 import { POKEMON_LIST } from './pokemon-list.fake';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
-  getPokemonList(): PokemonList {
-    return POKEMON_LIST;
+  private readonly http = inject(HttpClient);
+  private readonly POKEMON_API_URL = 'http://localhost:3000/pokemons';
+
+  getPokemonList(): Observable<PokemonList> {
+    return this.http.get<PokemonList>(this.POKEMON_API_URL);
   }
 
   getPokemonById(id: number): Pokemon {
