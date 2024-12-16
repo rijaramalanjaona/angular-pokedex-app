@@ -20,14 +20,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class PokemonListComponent {
   private readonly pokemonService = inject(PokemonService);
 
-  readonly pokemonList: Signal<PokemonList> = toSignal(this.pokemonService.getPokemonList(), {
-    initialValue: []
-  });
+  readonly pokemonList: Signal<PokemonList | undefined> = toSignal(this.pokemonService.getPokemonList());
+
+  readonly loading: Signal<boolean> = computed(() => !this.pokemonList());
 
   readonly searchTerm = signal('');
 
-  readonly pokemonListFiltered: Signal<PokemonList> = computed(() => this.pokemonList()
-    .filter(pokemon => pokemon.name.toLowerCase().includes(this.searchTerm().trim().toLowerCase())));
+  // noinspection TypeScriptValidateTypes
+  readonly pokemonListFiltered: Signal<PokemonList | undefined> = computed(() =>
+    this.pokemonList()?.filter(pokemon => pokemon.name.toLowerCase().includes(this.searchTerm().trim().toLowerCase())));
 
   size(pokemon: Pokemon): string {
     if (pokemon.life <= 15) {
