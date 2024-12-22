@@ -1,5 +1,5 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PokemonService } from '../../pokemon.service';
 import { DatePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -15,6 +15,7 @@ import { catchError, map, of } from 'rxjs';
 })
 export class PokemonProfileComponent {
   readonly route = inject(ActivatedRoute);
+  readonly router = inject(Router);
   readonly pokemonService = inject(PokemonService);
   readonly pokemonId = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -31,4 +32,10 @@ export class PokemonProfileComponent {
   readonly error = computed(() => this.pokemonResponse()?.error);
 
   readonly pokemon = computed(() => this.pokemonResponse()?.value);
+
+  deletePokemon(pokemonId: number) {
+    this.pokemonService.deletePokemon(pokemonId).subscribe(() =>
+      this.router.navigate(['/pokemons'])
+    );
+  }
 }

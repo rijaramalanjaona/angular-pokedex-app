@@ -35,4 +35,8 @@ export class PokemonService {
   updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
     return this.http.put<Pokemon>(`${this.POKEMON_API_URL}/${pokemon.id}`, pokemon);
   }
+
+  deletePokemon(pokemonId: number): Observable<void> {
+    return this.http.delete<void>(`${this.POKEMON_API_URL}/${pokemonId}`);
+  }
 }
