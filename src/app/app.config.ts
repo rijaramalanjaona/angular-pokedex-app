@@ -8,12 +8,26 @@ import { PokemonEditComponent } from './pokemon/pokemon-edit/pokemon-edit.compon
 import { AuthGuard } from './core/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'pokemons/edit/:id', component: PokemonEditComponent, title: 'Pokémon' },
-  { path: 'pokemons/:id', component: PokemonProfileComponent, title: 'Pokémon' },
-  { path: 'pokemons',
-    component: PokemonListComponent,
-    title: 'Pokédex',
-    canActivate: [AuthGuard]
+  {
+    path: 'pokemons',
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: PokemonListComponent,
+        title: 'Pokédex',
+      },
+      {
+        path: 'edit/:id',
+        component: PokemonEditComponent,
+        title: 'Pokémon'
+      },
+      {
+        path: ':id',
+        component: PokemonProfileComponent,
+        title: 'Pokémon'
+      }
+    ]
   },
   { path: '', redirectTo: '/pokemons', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent, title: 'Page introuvable' }
