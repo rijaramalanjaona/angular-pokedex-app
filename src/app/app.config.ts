@@ -8,6 +8,14 @@ import { PokemonEditComponent } from './pokemon/pokemon-edit/pokemon-edit.compon
 import { AuthGuard } from './core/auth/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { PokemonAddComponent } from './pokemon/pokemon-add/pokemon-add.component';
+import { PokemonService } from './pokemon.service';
+import { PokemonLocalStorageService } from './pokemon-local-storage.service';
+import { PokemonJsonServerService } from './pokemon-json-server.service';
+import { environment } from '../environments/environment';
+
+function pokemonServiceFactory(): PokemonService {
+  return environment.production ? new PokemonLocalStorageService() : new PokemonJsonServerService();
+}
 
 const routes: Routes = [
   {
@@ -49,6 +57,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient()
+    provideHttpClient(),
+    {
+      provide: PokemonService,
+      useFactory: pokemonServiceFactory
+    }
   ]
 };
